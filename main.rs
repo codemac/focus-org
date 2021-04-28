@@ -29,10 +29,11 @@ impl Heading {
             || self.state == "PROJECT";
     }
 
-    // fn is_done(&self) -> bool {
-    //     return self.state == "DONE" ||
-    //         self.state == "NVM";
-    // }
+    #[allow(dead_code)]
+    fn is_done(&self) -> bool {
+        return self.state == "DONE" ||
+            self.state == "NVM";
+    }
 
     fn is_clocked_now(&self) -> bool {
         if self.logged_active.is_none() {
