@@ -451,12 +451,22 @@ fn launch_fns(orgfiles: Vec<String>, result_send: mpsc::Sender<Heading>) {
 fn main() {
     let (result_send, result_recv) = mpsc::channel();
     let home_dir = env::var("HOME").unwrap();
+    let mut org_dir = home_dir.to_string() + "/org/";
 
     // As far as I can tell, this reads a directory and then returns a
     // list of strings of the contents of that directory. Jesus
     // christ.
-    let orgfiles: Vec<String> = fs::read_dir(home_dir.to_string() + "/org/")
-        .unwrap()
+    let readdir_result = fs::read_dir(&org_dir);
+
+    let readdir_result = match readdir_result {
+	Ok(result) => result,
+	Err(_err) => {
+	    org_dir = home_dir.to_string() + "/Dropbox/org/";
+	    fs::read_dir(&org_dir).unwrap()
+	},
+    };
+    
+    let orgfiles: Vec<String> = readdir_result
         .filter(|x| !x.as_ref().unwrap().file_type().unwrap().is_dir())
         .filter(|x| {
             !x.as_ref()
@@ -467,8 +477,7 @@ fn main() {
                 .starts_with(".")
         })
         .map(|x| {
-            home_dir.to_string()
-                + "/org/"
+	    org_dir.clone()
                 + x.unwrap().path().file_name().unwrap().to_str().unwrap()
         })
         .collect();

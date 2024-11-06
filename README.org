@@ -1,0 +1,38 @@
+* Print out what you're currently working on.
+:PROPERTIES:
+:ID:       F7FFBF79-FB1E-4CC0-BC99-ACAA69CBAC3B
+:END:
+
+Usually used with dzen2 or xbar on mac os x
+
+* Install instructions
+:PROPERTIES:
+:ID:       C6C62FED-1B51-452A-825E-6D6288273099
+:END:
+
+** Install rust
+:PROPERTIES:
+:ID:       6B214EBC-2C01-430C-A3C8-9E655C81F989
+:END:
+
+Linux: you know what to do
+
+mac os x:
+
+: brew install rustup
+: rustup-init
+
+** Build binary
+:PROPERTIES:
+:ID:       89131881-47E8-476D-995A-1081D7D2C126
+:END:
+
+: cargo build
+: cargo build --release
+
+** Run binary
+:PROPERTIES:
+:ID:       EB21B665-2038-4E58-B3B2-11D69F0C70F7
+:END:
+
+: ./target/release/focus-org
